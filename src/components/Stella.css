@@ -1,0 +1,63 @@
+.stella-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
+.stella-img {
+  width: 100%;
+  max-width: 250px;
+  object-fit: contain;
+  margin-top: auto;
+}
+
+.stella-dialogue {
+  position: relative;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.stella-dialogue-art {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.stella-dialogue-content {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+.stella-message {
+  font-family: var(--font-heading);
+  color: var(--deep-navy);
+  font-size: 1.1rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .stella-container {
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+  .stella-img {
+    max-width: 150px;
+    margin-top: 0;
+  }
+  .stella-dialogue {
+    max-width: 300px;
+    margin-bottom: 0;
+    margin-left: 1rem;
+  }
+}

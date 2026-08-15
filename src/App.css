@@ -1,0 +1,123 @@
+.portal-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+.portal-header {
+  background: var(--deep-navy);
+  color: var(--cream);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 4px solid var(--rocket-orange);
+}
+
+.portal-brand h1 {
+  font-family: var(--font-heading);
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.org-name {
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  color: var(--retro-teal);
+  text-transform: uppercase;
+}
+
+.portal-nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.nav-link:hover {
+  color: var(--atomic-gold);
+}
+
+.nav-button {
+  background: transparent;
+  border: 1px solid var(--cream);
+  color: var(--cream);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-code);
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  background: var(--cream);
+  color: var(--deep-navy);
+}
+
+.portal-layout {
+  flex: 1;
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.portal-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 900px;
+}
+
+.stella-column {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  .portal-layout {
+    flex-direction: column;
+  }
+  
+  .stella-column {
+    width: 100%;
+    order: -1;
+    align-items: center;
+    padding: 1rem;
+    max-height: 250px;
+  }
+
+  .portal-content {
+    max-width: 100%;
+  }
+
+  .portal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-code);
+  font-size: 1.2rem;
+  color: var(--deep-navy);
+}
