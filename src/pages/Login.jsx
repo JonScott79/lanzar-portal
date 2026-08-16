@@ -85,30 +85,34 @@ export default function Login({ authError: globalAuthError, unauthorized, handle
 
       <form onSubmit={resetMode ? handleReset : handleLogin} className="login-form">
         <div className="form-group">
-          <label>EMAIL ADDRESS</label>
+          <label htmlFor="login-email">EMAIL ADDRESS</label>
           <input 
+            id="login-email"
             type="email" 
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
             placeholder="e.g. customer@example.com"
             required 
             disabled={loading}
+            aria-required="true"
           />
         </div>
 
         {!resetMode && (
           <div className="form-group">
             <div className="label-row">
-              <label>PASSWORD</label>
-              <button type="button" className="text-link" onClick={() => setResetMode(true)}>Forgot?</button>
+              <label htmlFor="login-password">PASSWORD</label>
+              <button type="button" className="text-link" onClick={() => setResetMode(true)} aria-label="Forgot Password?">Forgot?</button>
             </div>
             <input 
+              id="login-password"
               type="password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
-              placeholder="••••••••"
+              placeholder="•••••••••"
               required 
               disabled={loading}
+              aria-required="true"
             />
           </div>
         )}
