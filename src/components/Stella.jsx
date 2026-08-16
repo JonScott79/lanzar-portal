@@ -5,20 +5,26 @@ export default function Stella({ user, customer, authError }) {
   const location = useLocation()
   
   let pose = '/images/stella/stella-001.png'
-  let message = 'Hello! Welcome to the LANZAR Customer Portal.'
+  let message = 'Welcome to your LANZAR account.'
 
   if (!user || authError) {
     pose = '/images/stella/stella-000.png'
-    message = authError ? 'Oh dear! We cannot authenticate you.' : 'Please sign in so we can direct you to the right service.'
+    message = authError ? 'Oh dear! You don\'t have portal access.' : 'Please sign in to manage your LANZAR account.'
   } else if (location.pathname === '/dashboard') {
     pose = '/images/stella/stella-001.png'
-    message = `Welcome back to the launching facility!`
-  } else if (location.pathname === '/submit') {
+    message = `Welcome to your LANZAR account.`
+  } else if (location.pathname === '/locations') {
     pose = '/images/stella/stella-002.png'
-    message = 'Let\'s get those details down so we can get right on it.'
-  } else if (location.pathname.startsWith('/ticket/')) {
+    message = 'Here are the locations LANZAR is servicing.'
+  } else if (location.pathname === '/equipment') {
     pose = '/images/stella/stella-003.png'
-    message = 'Here are the details for this request.'
+    message = 'Let\'s review your registered LANZAR equipment.'
+  } else if (location.pathname === '/users') {
+    pose = '/images/stella/stella-004.png'
+    message = 'These folks are authorized to access LANZAR services.'
+  } else if (location.pathname === '/account') {
+    pose = '/images/stella/stella-002.png'
+    message = 'Here are the details for your organization.'
   }
 
   return (

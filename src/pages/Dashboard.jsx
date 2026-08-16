@@ -1,125 +1,108 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getFirestore, collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore'
+import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore'
 import app from '../firebase/config.js'
 import './Dashboard.css'
 
 const db = getFirestore(app)
 
-export default function Dashboard({ customer, user }) {
+export default function Dashboard({ customer }) {
   const navigate = useNavigate()
-  const [tickets, setTickets] = useState([])
-  const [loading, setLoading] = useState(true)
+  
+  const [counts, setCounts] = useState({
+    locations: '-',
+    equipment: '-',
+    users: '-',
+    services: customer.services?.length || 0
+  })
 
   useEffect(() => {
-    const fetchTickets = async () => {
+    const fetchCounts = async () => {
       try {
-        const q = customer.accountId 
-          ? query(collection(db, 'tickets'), where('accountId', '==', customer.accountId), orderBy('createdAt', 'desc'), limit(10))
-          : query(collection(db, 'tickets'), where('customerId', '==', customer.id), orderBy('createdAt', 'desc'), limit(10))
-        
-        const snapshot = await getDocs(q)
-        const t = []
-        snapshot.forEach(doc => {
-          t.push({ id: doc.id, ...doc.data() })
-        })
-        setTickets(t)
+        if (!customer.accountId) return;
+
+        // Fetch Locations
+        const locRef = collection(db, 'accounts', customer.accountId, 'locations')
+        const locSnap = await getDocs(query(locRef, where('active', '==', true)))
+        const locCount = locSnap.size
+
+        // Fetch Assets
+        const astRef = collection(db, 'accounts', customer.accountId, 'assets')
+        const astSnap = await getDocs(query(astRef, where('active', '==', true)))
+        const astCount = astSnap.size
+
+        // Fetch Users (this might be tricky depending on schema, but typically users have accountId)
+        const userRef = collection(db, 'users')
+        const userSnap = await getDocs(query(userRef, where('accountId', '==', customer.accountId), where('active', '==', true)))
+        const userCount = userSnap.size
+
+        setCounts(prev => ({
+          ...prev,
+          locations: locCount,
+          equipment: astCount,
+          users: userCount > 0 ? userCount : 1 // at least themselves
+        }))
       } catch (err) {
-        console.error('Error fetching tickets', err)
-        // If index is missing, it will throw an error. We could fallback to no ordering
-        try {
-          const qFallback = customer.accountId 
-            ? query(collection(db, 'tickets'), where('accountId', '==', customer.accountId))
-            : query(collection(db, 'tickets'), where('customerId', '==', customer.id))
-          const snap2 = await getDocs(qFallback)
-          const t2 = []
-          snap2.forEach(doc => {
-            t2.push({ id: doc.id, ...doc.data() })
-          })
-          t2.sort((a, b) => (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0))
-          setTickets(t2.slice(0, 10))
-        } catch (err2) {
-          console.error('Fallback query failed', err2)
-        }
-      } finally {
-        setLoading(false)
+        console.error('Error fetching dashboard counts', err)
       }
     }
-    fetchTickets()
+    fetchCounts()
   }, [customer])
-
-  const openTickets = tickets.filter(t => t.status === 'PENDING' || t.status === 'MORE_INFO')
-  const inProgressTickets = tickets.filter(t => t.status === 'IN_PROGRESS' || t.status === 'APPROVED')
-  const resolvedTickets = tickets.filter(t => t.status === 'RESOLVED' || t.status === 'CLOSED')
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h2>Welcome back, {customer.customerName}!</h2>
-        <p>How can LANZAR assist your facility today?</p>
+        <h2>Your LANZAR Account</h2>
+        <p>Manage your relationship and view organization details.</p>
       </div>
 
-      <div className="dashboard-action-panel">
-        <button className="primary-btn huge-btn" onClick={() => navigate('/submit')}>
-          SUBMIT A SUPPORT REQUEST
-        </button>
-      </div>
-
-      <div className="stats-grid">
-        <div className="stat-card">
-          <span className="stat-value">{loading ? '-' : openTickets.length}</span>
-          <span className="stat-label">OPEN REQUESTS</span>
-        </div>
-        <div className="stat-card">
-          <span className="stat-value">{loading ? '-' : inProgressTickets.length}</span>
-          <span className="stat-label">IN PROGRESS</span>
-        </div>
-        <div className="stat-card">
-          <span className="stat-value">{loading ? '-' : resolvedTickets.length}</span>
-          <span className="stat-label">RESOLVED</span>
-        </div>
-      </div>
-
-      <div className="recent-requests">
-        <h3>RECENT REQUESTS</h3>
-        {loading ? (
-          <p>Loading records...</p>
-        ) : tickets.length === 0 ? (
-          <div className="empty-state">
-            <p>No recent support requests found.</p>
+      <div className="dashboard-modules">
+        
+        <div className="module-card" onClick={() => navigate('/account')}>
+          <div className="module-icon">🏢</div>
+          <div className="module-content">
+            <h3>ACCOUNT</h3>
+            <p>Manage Organization</p>
           </div>
-        ) : (
-          <table className="ticket-table">
-            <thead>
-              <tr>
-                <th>TICKET NUMBER</th>
-                <th>SERVICE</th>
-                <th>PROBLEM</th>
-                <th>STATUS</th>
-                <th>ACTION</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tickets.map(t => (
-                <tr key={t.id}>
-                  <td className="mono">{t.ticketNumber}</td>
-                  <td>{t.service}</td>
-                  <td>{t.category}</td>
-                  <td>
-                    <span className={`status-badge status-${t.status.toLowerCase()}`}>
-                      {t.status.replace('_', ' ')}
-                    </span>
-                  </td>
-                  <td>
-                    <button className="text-link" onClick={() => navigate(`/ticket/${t.ticketNumber}`)}>
-                      VIEW
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+          <div className="module-arrow">&rarr;</div>
+        </div>
+
+        <div className="module-card">
+          <div className="module-icon">✨</div>
+          <div className="module-content">
+            <h3>SERVICES</h3>
+            <p>{counts.services} Active Service{counts.services !== 1 ? 's' : ''}</p>
+          </div>
+          <div className="module-arrow">&rarr;</div>
+        </div>
+
+        <div className="module-card" onClick={() => navigate('/locations')}>
+          <div className="module-icon">📍</div>
+          <div className="module-content">
+            <h3>LOCATIONS</h3>
+            <p>{counts.locations} Location{counts.locations !== 1 ? 's' : ''}</p>
+          </div>
+          <div className="module-arrow">&rarr;</div>
+        </div>
+
+        <div className="module-card" onClick={() => navigate('/equipment')}>
+          <div className="module-icon">🖥️</div>
+          <div className="module-content">
+            <h3>EQUIPMENT</h3>
+            <p>{counts.equipment} Asset{counts.equipment !== 1 ? 's' : ''}</p>
+          </div>
+          <div className="module-arrow">&rarr;</div>
+        </div>
+
+        <div className="module-card" onClick={() => navigate('/users')}>
+          <div className="module-icon">👤</div>
+          <div className="module-content">
+            <h3>USERS</h3>
+            <p>{counts.users} Authorized User{counts.users !== 1 ? 's' : ''}</p>
+          </div>
+          <div className="module-arrow">&rarr;</div>
+        </div>
+
       </div>
     </div>
   )
