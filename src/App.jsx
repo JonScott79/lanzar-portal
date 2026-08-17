@@ -1,14 +1,11 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
+﻿import { useState, useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
-import { auth, signOutUser } from './firebase/auth.js'
-import { getAuthorizedCustomer } from './firebase/customers.js'
-import { getAuthorizedAdmin } from './firebase/admins.js'
+import { auth, signOutUser, signInWithCustomToken } from './firebase/auth.js'
+import { getCustomerData, getUserRole, getAdminData } from './firebase/db.js'
 
 import Login from './pages/Login.jsx'
-import CustomerApp from './CustomerApp.jsx'
-import AdminApp from './admin/AdminApp.jsx'
-
+import AdminApp from './pages/AdminApp.jsx'
+import CustomerApp from './pages/CustomerApp.jsx'
 import './App.css'
 
 function App() {
@@ -17,33 +14,79 @@ function App() {
   const [admin, setAdmin] = useState(null)
   const [loading, setLoading] = useState(true)
   const [authError, setAuthError] = useState(null)
+  const [isExchanging, setIsExchanging] = useState(false)
+
+  // Auth Hub API URL (Local vs Prod)
+  const authBackendUrl = window.location.hostname === 'localhost' ? 'http://localhost:4001' : 'https://auth-api.lanzar.me';
 
   useEffect(() => {
+    // 1. Check if returning from Auth Hub
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const state = urlParams.get('state');
+
+    if (code && state) {
+      setIsExchanging(true);
+      const storedState = sessionStorage.getItem('pkce_state');
+      const codeVerifier = sessionStorage.getItem('pkce_code_verifier');
+
+      if (state !== storedState) {
+        setAuthError('Authentication state mismatch. Please try again.');
+        setIsExchanging(false);
+      } else {
+        fetch(`${authBackendUrl}/exchange`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+              code,
+              client_id: 'portal',
+              redirect_uri: window.location.origin + window.location.pathname,
+              code_verifier: codeVerifier
+          })
+        })
+        .then(res => res.json().then(data => ({ ok: res.ok, data })))
+        .then(({ ok, data }) => {
+          if (!ok) throw new Error(data.error_description || data.error || 'Failed to exchange token');
+          return signInWithCustomToken(data.custom_token);
+        })
+        .then(() => {
+          // Clean up URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+          sessionStorage.removeItem('pkce_state');
+          sessionStorage.removeItem('pkce_code_verifier');
+          setIsExchanging(false);
+        })
+        .catch(err => {
+          console.error('[AUTH] Exchange Error:', err);
+          setAuthError('Failed to complete login via Auth Hub.');
+          setIsExchanging(false);
+          window.history.replaceState({}, document.title, window.location.pathname);
+        });
+        return; // Don't process onAuthStateChanged immediately, let it trigger after custom token
+      }
+    }
+
+    // 2. Normal auth state listener
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser)
         setAuthError(null)
-        
         try {
-          // Check Admin first
-          let foundAdmin = null
-          try {
-            foundAdmin = await getAuthorizedAdmin(firebaseUser.uid)
-          } catch (e) {
-            // normal customers might fail if firestore rules block /admins read
-          }
+          const role = await getUserRole(firebaseUser.uid)
           
-          if (foundAdmin) {
-            setAdmin(foundAdmin)
-            // Admins might also have a customer record, but we prioritize Admin mode
+          if (role === 'admin') {
+            const adminData = await getAdminData(firebaseUser.uid)
+            setAdmin(adminData || { id: firebaseUser.uid })
+            setCustomer(null)
           } else {
-            setAdmin(null)
-            const authorizedCustomer = await getAuthorizedCustomer(firebaseUser.uid)
-            if (authorizedCustomer) {
-              setCustomer(authorizedCustomer)
+            const customerData = await getCustomerData(firebaseUser.uid)
+            if (customerData) {
+              setCustomer(customerData)
+              setAdmin(null)
             } else {
               setAuthError('Your account does not have access to the LANZAR Portal.')
               setCustomer(null)
+              setAdmin(null)
             }
           }
         } catch (error) {
@@ -64,12 +107,15 @@ function App() {
     setLoading(true)
     await signOutUser()
     setLoading(false)
+    
+    // After local sign out, we could optionally redirect to auth hub logout:
+    // window.location.href = `https://auth.lanzar.me/logout?redirect_uri=${encodeURIComponent(window.location.origin)}`;
   }
 
-  if (loading) {
+  if (loading || isExchanging) {
     return (
       <main className="loading-screen">
-        <p>Connecting to LANZAR launching facility...</p>
+        <p>{isExchanging ? 'Completing secure login...' : 'Connecting to LANZAR launching facility...'}</p>
       </main>
     )
   }
