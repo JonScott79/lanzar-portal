@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { generateRandomString, generateCodeChallenge } from '../pkce.js'
 import './Login.css'
 
@@ -14,7 +14,7 @@ export default function Login({ authError: globalAuthError, unauthorized, handle
     sessionStorage.setItem('pkce_state', state);
     sessionStorage.setItem('pkce_code_verifier', codeVerifier);
 
-    const redirectUri = window.location.origin + window.location.pathname;
+    const redirectUri = (window.location.origin + window.location.pathname).replace(/\/+$/, '') || window.location.origin;
     
     // Auth Hub frontend URL
     const authHubUrl = 'https://auth.lanzar.me';

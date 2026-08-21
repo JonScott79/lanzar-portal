@@ -1,11 +1,12 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, signOutUser, signInWithCustomToken } from './firebase/auth.js'
-import { getCustomerData, getUserRole, getAdminData } from './firebase/db.js'
+import { getAuthorizedCustomer } from './firebase/customers.js'
+import { getAuthorizedAdmin } from './firebase/admins.js'
 
 import Login from './pages/Login.jsx'
-import AdminApp from './pages/AdminApp.jsx'
-import CustomerApp from './pages/CustomerApp.jsx'
+import AdminApp from './admin/AdminApp.jsx'
+import CustomerApp from './CustomerApp.jsx'
 import './App.css'
 
 function App() {
@@ -34,13 +35,14 @@ function App() {
         setAuthError('Authentication state mismatch. Please try again.');
         setIsExchanging(false);
       } else {
+        const cleanRedirectUri = (window.location.origin + window.location.pathname).replace(/\/+$/, '') || window.location.origin;
         fetch(`${authBackendUrl}/exchange`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
               code,
               client_id: 'portal',
-              redirect_uri: window.location.origin + window.location.pathname,
+              redirect_uri: cleanRedirectUri,
               code_verifier: codeVerifier
           })
         })
@@ -72,14 +74,13 @@ function App() {
         setUser(firebaseUser)
         setAuthError(null)
         try {
-          const role = await getUserRole(firebaseUser.uid)
+          const authorizedAdmin = await getAuthorizedAdmin(firebaseUser.uid)
           
-          if (role === 'admin') {
-            const adminData = await getAdminData(firebaseUser.uid)
-            setAdmin(adminData || { id: firebaseUser.uid })
+          if (authorizedAdmin) {
+            setAdmin(authorizedAdmin)
             setCustomer(null)
           } else {
-            const customerData = await getCustomerData(firebaseUser.uid)
+            const customerData = await getAuthorizedCustomer(firebaseUser.uid)
             if (customerData) {
               setCustomer(customerData)
               setAdmin(null)
