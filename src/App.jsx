@@ -35,7 +35,7 @@ function App() {
         setAuthError('Authentication state mismatch. Please try again.');
         setIsExchanging(false);
       } else {
-        const cleanRedirectUri = (window.location.origin + window.location.pathname).replace(/\/+$/, '') || window.location.origin;
+        const cleanRedirectUri = window.location.origin;
         fetch(`${authBackendUrl}/exchange`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -107,10 +107,11 @@ function App() {
   const handleSignOut = async () => {
     setLoading(true)
     await signOutUser()
+    sessionStorage.removeItem('pkce_state')
+    sessionStorage.removeItem('pkce_code_verifier')
     setLoading(false)
-    
-    // After local sign out, we could optionally redirect to auth hub logout:
-    // window.location.href = `https://auth.lanzar.me/logout?redirect_uri=${encodeURIComponent(window.location.origin)}`;
+    const authHubUrl = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://auth.lanzar.me';
+    window.location.href = `${authHubUrl}?logout=true&redirect_uri=${encodeURIComponent(window.location.origin)}`;
   }
 
   if (loading || isExchanging) {
