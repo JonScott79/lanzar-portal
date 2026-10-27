@@ -4,6 +4,7 @@ import AdminOrganizations from './AdminOrganizations.jsx'
 import AdminOrgDetail from './AdminOrgDetail.jsx'
 import AdminAnnouncements from './AdminAnnouncements.jsx'
 import AdminServices from './AdminServices.jsx'
+import AdminNewsletter from './AdminNewsletter.jsx'
 import './AdminApp.css'
 
 export default function AdminApp({ admin, user, handleSignOut }) {
@@ -23,6 +24,7 @@ export default function AdminApp({ admin, user, handleSignOut }) {
           <button className={`admin-nav-link ${location.pathname.startsWith('/admin/orgs') ? 'active' : ''}`} onClick={() => navigate('/admin/orgs')}>Organizations</button>
           <button className={`admin-nav-link ${location.pathname === '/admin/services' ? 'active' : ''}`} onClick={() => navigate('/admin/services')}>Service Catalog</button>
           <button className={`admin-nav-link ${location.pathname === '/admin/announcements' ? 'active' : ''}`} onClick={() => navigate('/admin/announcements')}>Announcements</button>
+          <button className={`admin-nav-link ${location.pathname === '/admin/newsletter' ? 'active' : ''}`} onClick={() => navigate('/admin/newsletter')}>Mailing List</button>
           <a href="https://tickets.lanzar.me" target="_blank" rel="noopener noreferrer" className="admin-nav-link">Ticket Queue &#8599;</a>
         </div>
         <div className="admin-nav-user">
@@ -40,6 +42,7 @@ export default function AdminApp({ admin, user, handleSignOut }) {
           <Route path="/admin/orgs/:id/*" element={<AdminOrgDetail />} />
           <Route path="/admin/services" element={<AdminServices />} />
           <Route path="/admin/announcements" element={<AdminAnnouncements admin={admin} user={user} />} />
+          <Route path="/admin/newsletter" element={<AdminNewsletter admin={admin} user={user} />} />
           <Route path="*" element={<Navigate to="/admin" />} />
         </Routes>
       </main>
