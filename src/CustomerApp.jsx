@@ -4,6 +4,7 @@ import Locations from './pages/Locations.jsx'
 import Equipment from './pages/Equipment.jsx'
 import Users from './pages/Users.jsx'
 import Account from './pages/Account.jsx'
+import Billing from './pages/Billing.jsx'
 import Stella from './components/Stella.jsx'
 
 export default function CustomerApp({ customer, user, handleSignOut }) {
@@ -20,6 +21,9 @@ export default function CustomerApp({ customer, user, handleSignOut }) {
            <nav className="portal-nav">
              <button className={`nav-link ${location.pathname === '/dashboard' || location.pathname === '/' ? 'active' : ''}`} onClick={() => navigate('/dashboard')}>
                ★ Dashboard
+             </button>
+             <button className={`nav-link ${location.pathname === '/billing' ? 'active' : ''}`} onClick={() => navigate('/billing')}>
+               ★ Services &amp; Billing
              </button>
              <button className={`nav-link ${location.pathname === '/locations' ? 'active' : ''}`} onClick={() => navigate('/locations')}>
                ★ Locations
@@ -59,6 +63,7 @@ export default function CustomerApp({ customer, user, handleSignOut }) {
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<Dashboard customer={customer} />} />
+            <Route path="/billing" element={<Billing customer={customer} user={user} />} />
             <Route path="/locations" element={<Locations customer={customer} />} />
             <Route path="/equipment" element={<Equipment customer={customer} />} />
             <Route path="/users" element={<Users customer={customer} />} />
