@@ -5,6 +5,7 @@ import AdminOrgDetail from './AdminOrgDetail.jsx'
 import AdminAnnouncements from './AdminAnnouncements.jsx'
 import AdminServices from './AdminServices.jsx'
 import AdminNewsletter from './AdminNewsletter.jsx'
+import AdminSupportVerification from './AdminSupportVerification.jsx'
 import './AdminApp.css'
 
 export default function AdminApp({ admin, user, handleSignOut }) {
@@ -21,6 +22,7 @@ export default function AdminApp({ admin, user, handleSignOut }) {
         </div>
         <div className="admin-nav-links">
           <button className={`admin-nav-link ${location.pathname === '/admin' ? 'active' : ''}`} onClick={() => navigate('/admin')}>Dashboard</button>
+          <button className={`admin-nav-link ${location.pathname === '/admin/support' ? 'active' : ''}`} onClick={() => navigate('/admin/support')}>Caller Verification</button>
           <button className={`admin-nav-link ${location.pathname.startsWith('/admin/orgs') ? 'active' : ''}`} onClick={() => navigate('/admin/orgs')}>Organizations</button>
           <button className={`admin-nav-link ${location.pathname === '/admin/services' ? 'active' : ''}`} onClick={() => navigate('/admin/services')}>Service Catalog</button>
           <button className={`admin-nav-link ${location.pathname === '/admin/announcements' ? 'active' : ''}`} onClick={() => navigate('/admin/announcements')}>Announcements</button>
@@ -38,6 +40,7 @@ export default function AdminApp({ admin, user, handleSignOut }) {
         <Routes>
           <Route path="/" element={<Navigate to="/admin" />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/support" element={<AdminSupportVerification admin={admin} user={user} />} />
           <Route path="/admin/orgs" element={<AdminOrganizations />} />
           <Route path="/admin/orgs/:id/*" element={<AdminOrgDetail />} />
           <Route path="/admin/services" element={<AdminServices />} />
