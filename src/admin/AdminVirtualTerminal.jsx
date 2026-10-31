@@ -79,26 +79,26 @@ export default function AdminVirtualTerminal({ admin, user }) {
     },
     hourly: {
       name: `Hourly Remote/On-Site IT Support (${hourlyCount} hr${hourlyCount > 1 ? 's' : ''})`,
-      amount: hourlyCount * 12500,
-      displayPrice: `$${hourlyCount * 125}.00 ($125/hr)`,
+      amount: hourlyCount * 15000,
+      displayPrice: `$${hourlyCount * 150}.00 ($150/hr)`,
       type: 'one_time'
     },
     tuneup: {
       name: 'Deep PC / Mac Tune-Up & Malware Removal',
-      amount: 9900,
-      displayPrice: '$99.00 flat',
+      amount: 10000,
+      displayPrice: '$100.00 flat',
       type: 'one_time'
     },
     setup: {
       name: 'New Computer Setup & Data Migration',
-      amount: 12900,
-      displayPrice: '$129.00 flat',
+      amount: 15000,
+      displayPrice: '$150.00 flat',
       type: 'one_time'
     },
     network: {
-      name: 'Wi-Fi & Network Architecture Overhaul',
-      amount: 17900,
-      displayPrice: '$179.00 flat',
+      name: 'Home Network & Wi-Fi Optimization',
+      amount: 15000,
+      displayPrice: '$150.00 flat',
       type: 'one_time'
     },
     custom: {
@@ -343,7 +343,7 @@ export default function AdminVirtualTerminal({ admin, user }) {
               onClick={() => setSelectedPreset('hourly')}
             >
               <div className="preset-name">⏱️ Hourly Support</div>
-              <div className="preset-price">$125 / hr</div>
+              <div className="preset-price">$150 / hr</div>
             </button>
 
             <button 
@@ -352,7 +352,7 @@ export default function AdminVirtualTerminal({ admin, user }) {
               onClick={() => setSelectedPreset('tuneup')}
             >
               <div className="preset-name">⚡ Tune-Up / Malware</div>
-              <div className="preset-price">$99 flat</div>
+              <div className="preset-price">$100 flat</div>
             </button>
 
             <button 
@@ -361,7 +361,7 @@ export default function AdminVirtualTerminal({ admin, user }) {
               onClick={() => setSelectedPreset('setup')}
             >
               <div className="preset-name">💻 PC/Mac Setup</div>
-              <div className="preset-price">$129 flat</div>
+              <div className="preset-price">$150 flat</div>
             </button>
 
             <button 
@@ -370,7 +370,7 @@ export default function AdminVirtualTerminal({ admin, user }) {
               onClick={() => setSelectedPreset('network')}
             >
               <div className="preset-name">📶 Wi-Fi Overhaul</div>
-              <div className="preset-price">$179 flat</div>
+              <div className="preset-price">$150 flat</div>
             </button>
 
             <button 
@@ -391,8 +391,8 @@ export default function AdminVirtualTerminal({ admin, user }) {
                 <button type="button" className="qty-btn" onClick={() => setHourlyCount(Math.max(1, hourlyCount - 1))}>-</button>
                 <span className="qty-display">{hourlyCount} Hour{hourlyCount > 1 ? 's' : ''}</span>
                 <button type="button" className="qty-btn" onClick={() => setHourlyCount(hourlyCount + 1)}>+</button>
-                <span style={{ marginLeft: 'auto', fontWeight: 'bold', color: '#1a2b3c' }}>
-                  Total: ${(hourlyCount * 125).toFixed(2)}
+                <span style={{ marginLeft: 'auto', fontWeight: 'bold', color: '#22c55e' }}>
+                  Total: ${(hourlyCount * 150).toFixed(2)}
                 </span>
               </div>
             </div>

@@ -13,6 +13,9 @@ export default function Stella({ user, customer, authError }) {
   } else if (location.pathname === '/dashboard') {
     pose = '/images/stella/stella-001.png'
     message = `Welcome to your LANZAR account.`
+  } else if (location.pathname === '/billing') {
+    pose = '/images/stella/stella-003.png'
+    message = 'Review your LANZAR plans, subscriptions, and payment history.'
   } else if (location.pathname === '/locations') {
     pose = '/images/stella/stella-002.png'
     message = 'Here are the locations LANZAR is servicing.'

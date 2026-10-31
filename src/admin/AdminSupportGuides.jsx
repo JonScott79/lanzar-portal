@@ -32,7 +32,7 @@ export default function AdminSupportGuides({ admin, user }) {
       icon: '💻',
       urgency: 'HIGH',
       recommendedPreset: 'tuneup',
-      recommendedPresetName: 'Deep PC/Mac Tune-Up ($99 flat)',
+      recommendedPresetName: 'Deep PC/Mac Tune-Up ($100 flat)',
       openingScript: "I understand your system won't boot properly. Don't worry—most boot failures are software or filesystem hiccups that we can recover without losing your data.",
       questions: [
         { id: 'b1', q: 'Does the power button illuminate or make any fan noises when pressed?' },
@@ -70,7 +70,7 @@ export default function AdminSupportGuides({ admin, user }) {
       icon: '🖨️',
       urgency: 'STANDARD',
       recommendedPreset: 'hourly',
-      recommendedPresetName: 'Hourly Remote Support ($125/hr - 1 hr)',
+      recommendedPresetName: 'Hourly Remote Support ($150/hr - 1 hr)',
       openingScript: "Printers frequently drop offline due to IP lease changes or stuck spooler jobs. Let's run a rapid connection test.",
       questions: [
         { id: 'p1', q: 'Is the printer connected via USB cable directly, or wireless Wi-Fi / Ethernet cable?' },
@@ -102,7 +102,7 @@ export default function AdminSupportGuides({ admin, user }) {
       icon: '📶',
       urgency: 'HIGH',
       recommendedPreset: 'network',
-      recommendedPresetName: 'Network Architecture Overhaul ($179 flat)',
+      recommendedPresetName: 'Home Network & Wi-Fi Optimization ($150 flat)',
       openingScript: "Let's check whether this is an ISP upstream blackout or a local wireless gateway / DNS resolution issue.",
       questions: [
         { id: 'n1', q: 'Is the WAN / Internet light on the modem/ONT solid green/white, or blinking red/amber?' },
@@ -134,7 +134,7 @@ export default function AdminSupportGuides({ admin, user }) {
       icon: '🦠',
       urgency: 'CRITICAL',
       recommendedPreset: 'tuneup',
-      recommendedPresetName: 'Deep PC/Mac Tune-Up & Malware Removal ($99 flat)',
+      recommendedPresetName: 'Deep PC/Mac Tune-Up & Malware Removal ($100 flat)',
       openingScript: "DO NOT call any telephone numbers displayed on your screen! That is a fraudulent pop-up designed to look like Microsoft or Apple. Your data is safe—do not give them remote access.",
       questions: [
         { id: 'm1', q: 'Is a loud siren or synthesized robotic voice playing saying your computer is compromised?' },
@@ -171,7 +171,7 @@ export default function AdminSupportGuides({ admin, user }) {
       icon: '📧',
       urgency: 'MEDIUM',
       recommendedPreset: 'hourly',
-      recommendedPresetName: 'Hourly IT Support ($125/hr - 1 hr)',
+      recommendedPresetName: 'Hourly IT Support ($150/hr - 1 hr)',
       openingScript: "We can help you re-authenticate and restore your mailbox access while keeping your account security intact.",
       questions: [
         { id: 'e1', q: 'Is the account a corporate Microsoft 365 / Google Workspace or a personal consumer email?' },
@@ -249,7 +249,7 @@ export default function AdminSupportGuides({ admin, user }) {
             className="btn-dispatch-charge"
             onClick={() => handleSendToTerminal(currentGuide.recommendedPreset, `${currentGuide.title} - ${callerNotes || 'Diagnosed on call'}`)}
           >
-            BILL THIS SERVICE (${currentGuide.recommendedPresetName.split('$')[1] || 'Over Phone'} ↗
+            BILL THIS SERVICE (${`$${currentGuide.recommendedPresetName.split('$')[1] || 'Over Phone)'}`} ↗
           </button>
         </div>
       </div>

@@ -32,6 +32,7 @@ export default function AdminApp({ admin, user, handleSignOut }) {
           <button className={`admin-nav-link ${location.pathname === '/admin/announcements' ? 'active' : ''}`} onClick={() => navigate('/admin/announcements')}>Announcements</button>
           <button className={`admin-nav-link ${location.pathname === '/admin/newsletter' ? 'active' : ''}`} onClick={() => navigate('/admin/newsletter')}>Mailing List</button>
           <a href="https://tickets.lanzar.me" target="_blank" rel="noopener noreferrer" className="admin-nav-link">Ticket Queue &#8599;</a>
+          <a href="https://lanzar.me" target="_blank" rel="noopener noreferrer" className="admin-nav-link">LANZAR.me &#8599;</a>
         </div>
         <div className="admin-nav-user">
           <span className="admin-email">{user.email}</span>

@@ -9,13 +9,49 @@ const API_BASE_URL = window.location.hostname === 'localhost'
   ? (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001')
   : (import.meta.env.VITE_API_BASE_URL && !import.meta.env.VITE_API_BASE_URL.includes('localhost') ? import.meta.env.VITE_API_BASE_URL : 'https://api.tickets.lanzar.me')
 
+const DEFAULT_CATALOG = [
+  {
+    id: 'homeowner',
+    serviceKey: 'it',
+    category: 'MANAGED IT',
+    name: 'Homeowner Support Plan',
+    amount: 4900,
+    interval: 'month',
+    mode: 'subscription',
+    description: '1 hour of direct monthly support, PC & Mac troubleshooting, home Wi-Fi & printer fixes, and priority remote help.',
+    directUrl: 'https://buy.stripe.com/14A5kx8RO5BEdcga083oA01'
+  },
+  {
+    id: 'business',
+    serviceKey: 'it',
+    category: 'MANAGED IT • MOST POPULAR',
+    name: 'Small Business Support Plan',
+    amount: 25000,
+    interval: 'month',
+    mode: 'subscription',
+    description: '2 hours of direct monthly support, workstation & office network troubleshooting, Microsoft 365 / Google Workspace, and priority scheduling.',
+    directUrl: 'https://buy.stripe.com/aFa4gtgkg4xAfkofks3oA04'
+  },
+  {
+    id: 'admin',
+    serviceKey: 'it',
+    category: 'MANAGED IT • FULL COVERAGE',
+    name: 'Full Admin Support Plan',
+    amount: 50000,
+    interval: 'month',
+    mode: 'subscription',
+    description: '5 hours of direct monthly support, router/firewall & Windows Server administration, backup status monitoring, and monthly health review.',
+    directUrl: 'https://buy.stripe.com/dRmeV7d842psdcgego3oA05'
+  }
+]
+
 export default function Billing({ customer, user }) {
   const [loading, setLoading] = useState(true)
   const [billingData, setBillingData] = useState({
     activeServices: customer?.services || [],
     subscriptions: [],
     orders: [],
-    catalog: []
+    catalog: DEFAULT_CATALOG
   })
   const [checkoutLoading, setCheckoutLoading] = useState(null)
   const [portalLoading, setPortalLoading] = useState(false)
@@ -37,11 +73,11 @@ export default function Billing({ customer, user }) {
           activeServices: data.activeServices || customer?.services || [],
           subscriptions: data.subscriptions || [],
           orders: data.orders || [],
-          catalog: data.catalog || []
+          catalog: (data.catalog && data.catalog.length > 0) ? data.catalog : DEFAULT_CATALOG
         })
       }
     } catch (err) {
-      console.error('[BILLING ERROR] Failed to load status:', err)
+      console.error('[BILLING ERROR] Failed to load status, using default catalog:', err)
     } finally {
       setLoading(false)
     }
@@ -69,7 +105,13 @@ export default function Billing({ customer, user }) {
   }, [])
 
   // Start Stripe Checkout
-  const handleCheckout = async (serviceId) => {
+  const handleCheckout = async (service) => {
+    if (service.directUrl) {
+      window.open(service.directUrl, '_blank', 'noopener,noreferrer')
+      return
+    }
+
+    const serviceId = service.id
     setCheckoutLoading(serviceId)
     setNotice(null)
     try {
@@ -131,7 +173,7 @@ export default function Billing({ customer, user }) {
 
   return (
     <div className="list-page billing-page">
-      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h2>SERVICES &amp; BILLING</h2>
           <p>Commercial service entitlements, subscription management, and payment history.</p>
@@ -202,7 +244,7 @@ export default function Billing({ customer, user }) {
                 <div className="card-actions">
                   <button
                     className={`primary-btn ${isSubscribed ? 'outline' : ''}`}
-                    onClick={() => handleCheckout(service.id)}
+                    onClick={() => handleCheckout(service)}
                     disabled={checkoutLoading === service.id}
                   >
                     {checkoutLoading === service.id
