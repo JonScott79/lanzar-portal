@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './AdminSupportVerification.css'
 
 export default function AdminSupportVerification({ admin, user }) {
+  const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const [customers, setCustomers] = useState([])
   const [selectedCustomer, setSelectedCustomer] = useState(null)
@@ -260,6 +262,7 @@ export default function AdminSupportVerification({ admin, user }) {
               <h4>IDENTITY VERIFICATION AUDIT LOGGED</h4>
               <p>Caller identity confirmed. Audit record created with ID: <code>{verificationResult.verificationId}</code></p>
               <div className="authorized-actions-bar">
+                <button type="button" className="action-pill-btn" onClick={() => navigate('/admin/terminal', { state: { customerName: selectedCustomer.name || selectedCustomer.companyName, customerEmail: selectedCustomer.email, customerPhone: selectedCustomer.phone } })}>💳 Take Payment (Virtual Terminal)</button>
                 <button type="button" className="action-pill-btn" onClick={() => alert('Password reset link sent to registered email.')}>Send Password Reset</button>
                 <button type="button" className="action-pill-btn" onClick={() => alert('Routing to Ticket System...')}>Open Support Ticket</button>
                 <button type="button" className="action-pill-btn" onClick={() => alert('Viewing billing invoice history...')}>Inspect Invoices</button>

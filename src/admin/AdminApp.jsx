@@ -6,6 +6,8 @@ import AdminAnnouncements from './AdminAnnouncements.jsx'
 import AdminServices from './AdminServices.jsx'
 import AdminNewsletter from './AdminNewsletter.jsx'
 import AdminSupportVerification from './AdminSupportVerification.jsx'
+import AdminVirtualTerminal from './AdminVirtualTerminal.jsx'
+import AdminSupportGuides from './AdminSupportGuides.jsx'
 import './AdminApp.css'
 
 export default function AdminApp({ admin, user, handleSignOut }) {
@@ -22,6 +24,8 @@ export default function AdminApp({ admin, user, handleSignOut }) {
         </div>
         <div className="admin-nav-links">
           <button className={`admin-nav-link ${location.pathname === '/admin' ? 'active' : ''}`} onClick={() => navigate('/admin')}>Dashboard</button>
+          <button className={`admin-nav-link ${location.pathname === '/admin/terminal' ? 'active' : ''}`} onClick={() => navigate('/admin/terminal')}>💳 Virtual Terminal</button>
+          <button className={`admin-nav-link ${location.pathname === '/admin/guides' ? 'active' : ''}`} onClick={() => navigate('/admin/guides')}>📖 Tech Guides &amp; Triage</button>
           <button className={`admin-nav-link ${location.pathname === '/admin/support' ? 'active' : ''}`} onClick={() => navigate('/admin/support')}>Caller Verification</button>
           <button className={`admin-nav-link ${location.pathname.startsWith('/admin/orgs') ? 'active' : ''}`} onClick={() => navigate('/admin/orgs')}>Organizations</button>
           <button className={`admin-nav-link ${location.pathname === '/admin/services' ? 'active' : ''}`} onClick={() => navigate('/admin/services')}>Service Catalog</button>
@@ -40,6 +44,8 @@ export default function AdminApp({ admin, user, handleSignOut }) {
         <Routes>
           <Route path="/" element={<Navigate to="/admin" />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/terminal" element={<AdminVirtualTerminal admin={admin} user={user} />} />
+          <Route path="/admin/guides" element={<AdminSupportGuides admin={admin} user={user} />} />
           <Route path="/admin/support" element={<AdminSupportVerification admin={admin} user={user} />} />
           <Route path="/admin/orgs" element={<AdminOrganizations />} />
           <Route path="/admin/orgs/:id/*" element={<AdminOrgDetail />} />
