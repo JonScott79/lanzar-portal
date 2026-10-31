@@ -14,6 +14,7 @@
 import {
   doc,
   getDoc,
+  setDoc,
   getFirestore,
 } from 'firebase/firestore'
 
@@ -121,4 +122,46 @@ export async function getAuthorizedCustomer(uid) {
   }
 
   return customer
+}
+
+export async function getOrCreateAuthorizedCustomer(firebaseUser) {
+  if (!firebaseUser?.uid) return null;
+
+  const existingCustomer = await getAuthorizedCustomer(firebaseUser.uid);
+  if (existingCustomer) {
+    return existingCustomer;
+  }
+
+  // Auto-provision initial customer profile so new users never hit an access denied loop
+  const displayName = firebaseUser.displayName || (firebaseUser.email ? firebaseUser.email.split('@')[0] : 'Customer');
+  const email = firebaseUser.email || '';
+
+  const newProfile = {
+    displayName,
+    email,
+    active: true,
+    role: 'USER',
+    services: [],
+    createdAt: new Date().toISOString()
+  };
+
+  try {
+    const userRef = doc(db, 'users', firebaseUser.uid);
+    await setDoc(userRef, newProfile, { merge: true });
+  } catch (err) {
+    console.warn('[AUTH] Could not write users collection:', err.message);
+  }
+
+  return {
+    id: firebaseUser.uid,
+    customerId: firebaseUser.uid,
+    customerName: displayName,
+    displayName: displayName,
+    customerEmail: email,
+    authEmail: email,
+    accountId: null,
+    role: 'USER',
+    services: [],
+    active: true
+  };
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, signOutUser, signInWithCustomToken } from './firebase/auth.js'
-import { getAuthorizedCustomer } from './firebase/customers.js'
+import { getAuthorizedCustomer, getOrCreateAuthorizedCustomer } from './firebase/customers.js'
 import { getAuthorizedAdmin } from './firebase/admins.js'
 
 import Login from './pages/Login.jsx'
@@ -80,12 +80,11 @@ function App() {
             setAdmin(authorizedAdmin)
             setCustomer(null)
           } else {
-            const customerData = await getAuthorizedCustomer(firebaseUser.uid)
+            const customerData = await getOrCreateAuthorizedCustomer(firebaseUser)
             if (customerData) {
               setCustomer(customerData)
               setAdmin(null)
             } else {
-              setAuthError('Your account does not have access to the LANZAR Portal.')
               setCustomer(null)
               setAdmin(null)
             }

@@ -5,7 +5,9 @@ import './ListPages.css'
 import './Billing.css'
 
 const auth = getAuth(app)
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001'
+const API_BASE_URL = window.location.hostname === 'localhost'
+  ? (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001')
+  : (import.meta.env.VITE_API_BASE_URL && !import.meta.env.VITE_API_BASE_URL.includes('localhost') ? import.meta.env.VITE_API_BASE_URL : 'https://api.tickets.lanzar.me')
 
 export default function Billing({ customer, user }) {
   const [loading, setLoading] = useState(true)
