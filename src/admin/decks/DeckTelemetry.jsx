@@ -28,7 +28,7 @@ export default function DeckTelemetry() {
   };
 
   return (
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
       <div className="mc-deck-header">
         <div className="mc-deck-title-wrap">
           <span className="mc-deck-tag">DECK 08 // INFRASTRUCTURE TELEMETRY</span>
@@ -81,8 +81,8 @@ export default function DeckTelemetry() {
             <span>📡</span> DISTRIBUTED CLOUD COMPONENT HEALTH
           </h3>
         </div>
-        <div className="mc-panel-body" style="padding: 0;">
-          <div className="mc-table-container" style="border: none;">
+        <div className="mc-panel-body" style={{ padding: "0" }}>
+          <div className="mc-table-container" style={{ border: "none" }}>
             <table className="mc-table">
               <thead>
                 <tr>
@@ -98,45 +98,45 @@ export default function DeckTelemetry() {
                   <td>
                     <strong>Identity &amp; Auth Backend</strong>
                   </td>
-                  <td style="font-family: var(--mc-font-mono); font-size: 0.75rem;">Railway / US-East</td>
-                  <td style="font-family: var(--mc-font-mono); font-size: 0.72rem; color: var(--mc-cyan);">auth-api.lanzar.me</td>
-                  <td style="font-size: 0.8rem;">18% CPU • 64MB RAM</td>
+                  <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.75rem" }}>Railway / US-East</td>
+                  <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.72rem", color: "var(--mc-cyan)" }}>auth-api.lanzar.me</td>
+                  <td style={{ fontSize: "0.8rem" }}>18% CPU • 64MB RAM</td>
                   <td><span className="mc-badge nominal">&#9679; NOMINAL</span></td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Credential Vault &amp; Users</strong>
                   </td>
-                  <td style="font-family: var(--mc-font-mono); font-size: 0.75rem;">Firebase Auth (lanzar-95ae3)</td>
-                  <td style="font-family: var(--mc-font-mono); font-size: 0.72rem; color: var(--mc-cyan);">Standard Tier</td>
-                  <td style="font-size: 0.8rem;">&lt; 1% of 50k MAU limit</td>
+                  <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.75rem" }}>Firebase Auth (lanzar-95ae3)</td>
+                  <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.72rem", color: "var(--mc-cyan)" }}>Standard Tier</td>
+                  <td style={{ fontSize: "0.8rem" }}>&lt; 1% of 50k MAU limit</td>
                   <td><span className="mc-badge nominal">&#9679; NOMINAL</span></td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Profiles &amp; Audit Logs</strong>
                   </td>
-                  <td style="font-family: var(--mc-font-mono); font-size: 0.75rem;">Cloud Firestore (nam5)</td>
-                  <td style="font-family: var(--mc-font-mono); font-size: 0.72rem; color: var(--mc-cyan);">Authoritative Storage</td>
-                  <td style="font-size: 0.8rem;">&lt; 2% daily free tier quota</td>
+                  <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.75rem" }}>Cloud Firestore (nam5)</td>
+                  <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.72rem", color: "var(--mc-cyan)" }}>Authoritative Storage</td>
+                  <td style={{ fontSize: "0.8rem" }}>&lt; 2% daily free tier quota</td>
                   <td><span className="mc-badge nominal">&#9679; NOMINAL</span></td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Mothership &amp; Portals</strong>
                   </td>
-                  <td style="font-family: var(--mc-font-mono); font-size: 0.75rem;">Netlify Edge CDN</td>
-                  <td style="font-family: var(--mc-font-mono); font-size: 0.72rem; color: var(--mc-cyan);">lanzar.me, portal, id</td>
-                  <td style="font-size: 0.8rem;">14% build minutes used</td>
+                  <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.75rem" }}>Netlify Edge CDN</td>
+                  <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.72rem", color: "var(--mc-cyan)" }}>lanzar.me, portal, id</td>
+                  <td style={{ fontSize: "0.8rem" }}>14% build minutes used</td>
                   <td><span className="mc-badge nominal">&#9679; NOMINAL</span></td>
                 </tr>
                 <tr>
                   <td>
                     <strong>SMS Carrier Provider</strong>
                   </td>
-                  <td style="font-family: var(--mc-font-mono); font-size: 0.75rem;">MockSMSProvider (Internal)</td>
-                  <td style="font-family: var(--mc-font-mono); font-size: 0.72rem; color: var(--mc-cyan);">smsService.js</td>
-                  <td style="font-size: 0.8rem;">0 SMS cost (Carrier deferred)</td>
+                  <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.75rem" }}>MockSMSProvider (Internal)</td>
+                  <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.72rem", color: "var(--mc-cyan)" }}>smsService.js</td>
+                  <td style={{ fontSize: "0.8rem" }}>0 SMS cost (Carrier deferred)</td>
                   <td><span className="mc-badge cyan">&#9679; STAGED</span></td>
                 </tr>
               </tbody>

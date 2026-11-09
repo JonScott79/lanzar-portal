@@ -33,7 +33,7 @@ export default function DeckEntitlements() {
   ]);
 
   return (
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
       <div className="mc-deck-header">
         <div className="mc-deck-title-wrap">
           <span className="mc-deck-tag">DECK 07 // PRODUCT ENTITLEMENTS</span>
@@ -44,21 +44,21 @@ export default function DeckEntitlements() {
         </div>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
         {tiers.map(t => (
-          <div key={t.id} className="mc-panel" style="border-color: var(--mc-border);">
+          <div key={t.id} className="mc-panel" style={{ borderColor: "var(--mc-border)" }}>
             <div className="mc-panel-header">
               <div>
                 <span className="mc-badge cyan">{t.id.toUpperCase()}</span>
-                <h4 style="margin: 4px 0 0 0; color: #fff; font-size: 1.05rem;">{t.name}</h4>
+                <h4 style={{ margin: "4px 0 0 0", color: "#fff", fontSize: "1.05rem" }}>{t.name}</h4>
               </div>
               <span className="mc-badge nominal">&#10003; {t.status}</span>
             </div>
-            <div className="mc-panel-body" style="display: flex; flex-direction: column; gap: 0.6rem;">
-              <div style="font-size: 0.8rem; color: var(--mc-text-muted);">
+            <div className="mc-panel-body" style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+              <div style={{ fontSize: "0.8rem", color: "var(--mc-text-muted)" }}>
                 <strong>Target:</strong> {t.target}
               </div>
-              <div style="font-size: 0.8rem; color: var(--mc-text-dim);">
+              <div style={{ fontSize: "0.8rem", color: "var(--mc-text-dim)" }}>
                 <strong>Quotas & Features:</strong> {t.quotas}
               </div>
             </div>
@@ -74,11 +74,11 @@ export default function DeckEntitlements() {
           </h3>
         </div>
         <div className="mc-panel-body">
-          <p style="font-size: 0.85rem; color: var(--mc-text-muted); margin: 0 0 1rem 0;">
+          <p style={{ fontSize: "0.85rem", color: "var(--mc-text-muted)", margin: "0 0 1rem 0" }}>
             Complimentary access is managed in <code>/users/{'{uid}'}/entitlements</code> with strict audit attribution.
           </p>
-          <div style="display: flex; gap: 0.75rem; align-items: center;">
-            <input className="mc-input" placeholder="User UID for entitlement grant..." style="flex: 1;" />
+          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+            <input className="mc-input" placeholder="User UID for entitlement grant..." style={{ flex: "1" }} />
             <select className="mc-select">
               <option value="pro">GRANT PRO TIER</option>
               <option value="student">GRANT STUDENT TIER</option>

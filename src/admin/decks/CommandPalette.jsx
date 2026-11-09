@@ -63,7 +63,7 @@ export default function CommandPalette({ isOpen, onClose }) {
     <div className="mc-palette-backdrop" onClick={onClose}>
       <div className="mc-palette" onClick={e => e.stopPropagation()}>
         <div className="mc-palette-search">
-          <span style="color: var(--mc-gold); font-size: 1.1rem;">&#9737;</span>
+          <span style={{ color: "var(--mc-gold)", fontSize: "1.1rem" }}>&#9737;</span>
           <input
             className="mc-palette-input"
             autoFocus
@@ -76,7 +76,7 @@ export default function CommandPalette({ isOpen, onClose }) {
 
         <div className="mc-palette-results">
           {filtered.length === 0 ? (
-            <div style="padding: 1.5rem; text-align: center; color: var(--mc-text-dim); font-size: 0.85rem;">
+            <div style={{ padding: "1.5rem", textAlign: "center", color: "var(--mc-text-dim)", fontSize: "0.85rem" }}>
               No matching operational decks found.
             </div>
           ) : (
@@ -89,14 +89,14 @@ export default function CommandPalette({ isOpen, onClose }) {
                   onClose();
                 }}
               >
-                <div style="display: flex; align-items: center; gap: 0.75rem;">
-                  <span style="font-size: 1.1rem;">{item.icon}</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <span style={{ fontSize: "1.1rem" }}>{item.icon}</span>
                   <div>
-                    <div style="font-weight: 700; font-size: 0.88rem;">{item.title}</div>
-                    <div style="font-size: 0.72rem; color: var(--mc-text-muted);">{item.desc}</div>
+                    <div style={{ fontWeight: "700", fontSize: "0.88rem" }}>{item.title}</div>
+                    <div style={{ fontSize: "0.72rem", color: "var(--mc-text-muted)" }}>{item.desc}</div>
                   </div>
                 </div>
-                <span style="font-family: var(--mc-font-mono); font-size: 0.7rem; color: var(--mc-cyan);">
+                <span style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.7rem", color: "var(--mc-cyan)" }}>
                   {item.path}
                 </span>
               </div>

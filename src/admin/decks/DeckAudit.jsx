@@ -29,7 +29,7 @@ export default function DeckAudit() {
   });
 
   return (
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
       <div className="mc-deck-header">
         <div className="mc-deck-title-wrap">
           <span className="mc-deck-tag">DECK 09 // AUDIT CENTER</span>
@@ -48,7 +48,7 @@ export default function DeckAudit() {
       {/* Filter and Table */}
       <div className="mc-panel">
         <div className="mc-panel-header">
-          <div style="display: flex; gap: 1rem; align-items: center;">
+          <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
             <h3 className="mc-panel-title">
               <span>📜</span> EVENT LOGS ({filtered.length})
             </h3>
@@ -67,8 +67,8 @@ export default function DeckAudit() {
           </div>
         </div>
 
-        <div className="mc-panel-body" style="padding: 0;">
-          <div className="mc-table-container" style="border: none;">
+        <div className="mc-panel-body" style={{ padding: "0" }}>
+          <div className="mc-table-container" style={{ border: "none" }}>
             <table className="mc-table">
               <thead>
                 <tr>
@@ -78,38 +78,38 @@ export default function DeckAudit() {
                   <th>TARGET RESOURCE</th>
                   <th>IP ORIGIN</th>
                   <th>STATUS</th>
-                  <th style="text-align: right;">PAYLOAD</th>
+                  <th style={{ textAlign: "right" }}>PAYLOAD</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan="7" style="text-align: center; padding: 2rem; color: var(--mc-text-dim);">
+                    <td colSpan="7" style={{ textAlign: "center", padding: "2rem", color: "var(--mc-text-dim)" }}>
                       Streaming logs from tamper-resistant security ledger...
                     </td>
                   </tr>
                 ) : filtered.length === 0 ? (
                   <tr>
-                    <td colSpan="7" style="text-align: center; padding: 2rem; color: var(--mc-text-dim);">
+                    <td colSpan="7" style={{ textAlign: "center", padding: "2rem", color: "var(--mc-text-dim)" }}>
                       No matching security events found.
                     </td>
                   </tr>
                 ) : (
                   filtered.map((log, idx) => (
                     <tr key={idx}>
-                      <td style="font-family: var(--mc-font-mono); font-size: 0.72rem; color: var(--mc-text-muted);">
+                      <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.72rem", color: "var(--mc-text-muted)" }}>
                         {log.timestamp ? new Date(log.timestamp).toISOString().replace('T', ' ').substring(0, 19) : '—'}
                       </td>
-                      <td style="font-family: var(--mc-font-mono); font-weight: 700;">
+                      <td style={{ fontFamily: "var(--mc-font-mono)", fontWeight: "700" }}>
                         {log.action}
                       </td>
-                      <td style="font-family: var(--mc-font-mono); font-size: 0.75rem;">
+                      <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.75rem" }}>
                         {log.actorUid || 'SYSTEM'}
                       </td>
-                      <td style="font-family: var(--mc-font-mono); font-size: 0.72rem; color: var(--mc-cyan);">
+                      <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.72rem", color: "var(--mc-cyan)" }}>
                         {log.targetUid || log.email || '—'}
                       </td>
-                      <td style="font-family: var(--mc-font-mono); font-size: 0.72rem; color: var(--mc-text-dim);">
+                      <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.72rem", color: "var(--mc-text-dim)" }}>
                         {log.ipAddress || '127.0.0.1'}
                       </td>
                       <td>
@@ -117,10 +117,10 @@ export default function DeckAudit() {
                           {(log.status || 'OK').toUpperCase()}
                         </span>
                       </td>
-                      <td style="text-align: right;">
+                      <td style={{ textAlign: "right" }}>
                         <button
                           className="mc-btn mc-btn-secondary"
-                          style="padding: 3px 8px; font-size: 0.68rem;"
+                          style={{ padding: "3px 8px", fontSize: "0.68rem" }}
                           onClick={() => setSelectedLog(log)}
                         >
                           JSON &rarr;
@@ -138,13 +138,13 @@ export default function DeckAudit() {
       {/* JSON Payload Inspector Modal */}
       {selectedLog && (
         <div className="mc-modal-backdrop" onClick={() => setSelectedLog(null)}>
-          <div className="mc-modal" style="max-width: 650px;" onClick={e => e.stopPropagation()}>
-            <div className="mc-modal-header" style="background: var(--mc-bg-elevated); border-color: var(--mc-border);">
-              <span style="font-size: 1.1rem; color: var(--mc-cyan);">&#9672;</span>
-              <h3 className="mc-modal-title" style="color: #fff;">SECURITY AUDIT LOG PAYLOAD</h3>
+          <div className="mc-modal" style={{ maxWidth: "650px" }} onClick={e => e.stopPropagation()}>
+            <div className="mc-modal-header" style={{ background: "var(--mc-bg-elevated)", borderColor: "var(--mc-border)" }}>
+              <span style={{ fontSize: "1.1rem", color: "var(--mc-cyan)" }}>&#9672;</span>
+              <h3 className="mc-modal-title" style={{ color: "#fff" }}>SECURITY AUDIT LOG PAYLOAD</h3>
             </div>
-            <div className="mc-modal-body" style="padding: 1rem;">
-              <pre style="background: var(--mc-bg-deep); border: 1px solid var(--mc-border); border-radius: 6px; padding: 1rem; color: var(--mc-gold); font-family: var(--mc-font-mono); font-size: 0.75rem; overflow-x: auto; max-height: 400px; margin: 0;">
+            <div className="mc-modal-body" style={{ padding: "1rem" }}>
+              <pre style={{ background: "var(--mc-bg-deep)", border: "1px solid var(--mc-border)", borderRadius: "6px", padding: "1rem", color: "var(--mc-gold)", fontFamily: "var(--mc-font-mono)", fontSize: "0.75rem", overflowX: "auto", maxHeight: "400px", margin: "0" }}>
                 {JSON.stringify(selectedLog, null, 2)}
               </pre>
             </div>

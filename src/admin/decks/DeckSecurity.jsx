@@ -23,7 +23,7 @@ export default function DeckSecurity() {
   };
 
   return (
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
       <div className="mc-deck-header">
         <div className="mc-deck-title-wrap">
           <span className="mc-deck-tag">DECK 03 // SECURITY CENTER</span>
@@ -70,7 +70,7 @@ export default function DeckSecurity() {
       </div>
 
       {/* Tab Switcher */}
-      <div style="display: flex; gap: 0.5rem; border-bottom: 1px solid var(--mc-border); padding-bottom: 0.5rem;">
+      <div style={{ display: "flex", gap: "0.5rem", borderBottom: "1px solid var(--mc-border)", paddingBottom: "0.5rem" }}>
         <button
           className={`mc-btn ${activeTab === 'adoption' ? 'mc-btn-primary' : 'mc-btn-secondary'}`}
           onClick={() => setActiveTab('adoption')}
@@ -98,43 +98,43 @@ export default function DeckSecurity() {
               <span>&#128737;</span> SUPPORTED MULTI-FACTOR AUTHENTICATION STANDARDS
             </h3>
           </div>
-          <div className="mc-panel-body" style="display: flex; flex-direction: column; gap: 1rem;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-              <div className="mc-panel" style="padding: 1rem; border-color: var(--mc-gold);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                  <strong style="color: var(--mc-gold);">Universal TOTP Authenticator</strong>
+          <div className="mc-panel-body" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem" }}>
+              <div className="mc-panel" style={{ padding: "1rem", borderColor: "var(--mc-gold)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+                  <strong style={{ color: "var(--mc-gold)" }}>Universal TOTP Authenticator</strong>
                   <span className="mc-badge gold">RFC 6238 ACTIVE</span>
                 </div>
-                <p style="font-size: 0.8rem; color: var(--mc-text-muted); margin: 0 0 0.5rem 0;">
+                <p style={{ fontSize: "0.8rem", color: "var(--mc-text-muted)", margin: "0 0 0.5rem 0" }}>
                   Compatible with Microsoft Authenticator, Google Authenticator, 1Password, Bitwarden. 30s intervals, 6-digit codes.
                 </p>
-                <div style="font-family: var(--mc-font-mono); font-size: 0.7rem; color: var(--mc-text-dim);">
+                <div style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.7rem", color: "var(--mc-text-dim)" }}>
                   Storage: AES-256-GCM encrypted in <code>/users/{'{uid}'}/mfa_secrets/totp</code>
                 </div>
               </div>
 
-              <div className="mc-panel" style="padding: 1rem; border-color: var(--mc-cyan);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                  <strong style="color: var(--mc-cyan);">Single-Use Recovery Codes</strong>
+              <div className="mc-panel" style={{ padding: "1rem", borderColor: "var(--mc-cyan)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+                  <strong style={{ color: "var(--mc-cyan)" }}>Single-Use Recovery Codes</strong>
                   <span className="mc-badge cyan">ACTIVE</span>
                 </div>
-                <p style="font-size: 0.8rem; color: var(--mc-text-muted); margin: 0 0 0.5rem 0;">
+                <p style={{ fontSize: "0.8rem", color: "var(--mc-text-muted)", margin: "0 0 0.5rem 0" }}>
                   10 cryptographically random 8-character recovery codes generated upon MFA enrollment. Argon2/SHA-256 hashed.
                 </p>
-                <div style="font-family: var(--mc-font-mono); font-size: 0.7rem; color: var(--mc-text-dim);">
+                <div style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.7rem", color: "var(--mc-text-dim)" }}>
                   Policy: Consumed once then invalidated permanently.
                 </div>
               </div>
 
-              <div className="mc-panel" style="padding: 1rem; border-color: var(--mc-border);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <div className="mc-panel" style={{ padding: "1rem", borderColor: "var(--mc-border)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
                   <strong>Phone SMS Verification</strong>
                   <span className="mc-badge warning">STAGED (ZERO COST)</span>
                 </div>
-                <p style="font-size: 0.8rem; color: var(--mc-text-muted); margin: 0 0 0.5rem 0;">
+                <p style={{ fontSize: "0.8rem", color: "var(--mc-text-muted)", margin: "0 0 0.5rem 0" }}>
                   Provider-abstraction layer complete. <code>smsService.js</code> Mock Provider active. Live carrier activation deferred.
                 </p>
-                <div style="font-family: var(--mc-font-mono); font-size: 0.7rem; color: var(--mc-text-dim);">
+                <div style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.7rem", color: "var(--mc-text-dim)" }}>
                   Guard: <code>SMS_LIVE_ENABLED=false</code> prevents unexpected billing.
                 </div>
               </div>
@@ -150,8 +150,8 @@ export default function DeckSecurity() {
               <span>&#9878;</span> DUAL-ADMIN MFA RESET REQUESTS (SOP-05)
             </h3>
           </div>
-          <div className="mc-panel-body" style="padding: 0;">
-            <div className="mc-table-container" style="border: none;">
+          <div className="mc-panel-body" style={{ padding: "0" }}>
+            <div className="mc-table-container" style={{ border: "none" }}>
               <table className="mc-table">
                 <thead>
                   <tr>
@@ -166,16 +166,16 @@ export default function DeckSecurity() {
                 <tbody>
                   {recoveryRequests.map(req => (
                     <tr key={req.id}>
-                      <td style="font-family: var(--mc-font-mono); font-size: 0.72rem; color: var(--mc-cyan);">
+                      <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.72rem", color: "var(--mc-cyan)" }}>
                         {req.id}
                       </td>
                       <td>
                         <strong>{req.email}</strong>
-                        <div style="font-family: var(--mc-font-mono); font-size: 0.68rem; color: var(--mc-text-dim);">
+                        <div style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.68rem", color: "var(--mc-text-dim)" }}>
                           {req.uid}
                         </div>
                       </td>
-                      <td style="font-size: 0.8rem;">{req.reason}</td>
+                      <td style={{ fontSize: "0.8rem" }}>{req.reason}</td>
                       <td>
                         <span className="mc-badge nominal">&#10003; {req.signoff1}</span>
                       </td>
@@ -192,7 +192,7 @@ export default function DeckSecurity() {
                         ) : (
                           <button
                             className="mc-btn mc-btn-primary"
-                            style="padding: 3px 8px; font-size: 0.7rem;"
+                            style={{ padding: "3px 8px", fontSize: "0.7rem" }}
                             onClick={() => handleApproveSecondary(req.id)}
                           >
                             SIGN &amp; APPROVE
@@ -215,10 +215,10 @@ export default function DeckSecurity() {
               <span>&#9888;</span> ACTIVE RATE-LIMITS &amp; LOCKOUT MONITOR
             </h3>
           </div>
-          <div className="mc-panel-body" style="text-align: center; padding: 3rem 1rem; color: var(--mc-text-dim);">
-            <div style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--mc-emerald);">&#10003;</div>
-            <div style="font-weight: 700; color: #fff;">Zero accounts currently under security lockout.</div>
-            <div style="font-size: 0.8rem; margin-top: 0.25rem;">
+          <div className="mc-panel-body" style={{ textAlign: "center", padding: "3rem 1rem", color: "var(--mc-text-dim)" }}>
+            <div style={{ fontSize: "2rem", marginBottom: "0.5rem", color: "var(--mc-emerald)" }}>&#10003;</div>
+            <div style={{ fontWeight: "700", color: "#fff" }}>Zero accounts currently under security lockout.</div>
+            <div style={{ fontSize: "0.8rem", marginTop: "0.25rem" }}>
               Authentication rate limits and replay defenses are operating nominally.
             </div>
           </div>

@@ -36,7 +36,7 @@ export default function DeckOverview() {
   const mfaPercent = totalUsers > 0 ? Math.round((mfaCount / totalUsers) * 100) : 0;
 
   return (
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
       {/* Header Banner */}
       <div className="mc-deck-header">
         <div className="mc-deck-title-wrap">
@@ -57,7 +57,7 @@ export default function DeckOverview() {
       </div>
 
       {error && (
-        <div style="padding: 1rem; background: var(--mc-rose-dim); border: 1px solid var(--mc-rose); border-radius: 6px; color: var(--mc-rose); font-family: var(--mc-font-mono); font-size: 0.82rem;">
+        <div style={{ padding: "1rem", background: "var(--mc-rose-dim)", border: "1px solid var(--mc-rose)", borderRadius: "6px", color: "var(--mc-rose)", fontFamily: "var(--mc-font-mono)", fontSize: "0.82rem" }}>
           SYSTEM TELEMETRY ALERT: {error}
         </div>
       )}
@@ -98,19 +98,19 @@ export default function DeckOverview() {
       </div>
 
       {/* Two Column Layout: Quick Actions & Live Stream */}
-      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "1.5rem" }}>
         {/* Live Security Stream Panel */}
         <div className="mc-panel">
           <div className="mc-panel-header">
             <h3 className="mc-panel-title">
-              <span style="color: var(--mc-cyan);">&#9672;</span> LIVE SECURITY EVENT STREAM
+              <span style={{ color: "var(--mc-cyan)" }}>&#9672;</span> LIVE SECURITY EVENT STREAM
             </h3>
-            <button className="mc-btn mc-btn-secondary" style="padding: 3px 8px; font-size: 0.7rem;" onClick={() => navigate('/admin/audit')}>
+            <button className="mc-btn mc-btn-secondary" style={{ padding: "3px 8px", fontSize: "0.7rem" }} onClick={() => navigate('/admin/audit')}>
               VIEW ALL &rarr;
             </button>
           </div>
-          <div className="mc-panel-body" style="padding: 0;">
-            <div className="mc-table-container" style="border: none; border-radius: 0;">
+          <div className="mc-panel-body" style={{ padding: "0" }}>
+            <div className="mc-table-container" style={{ border: "none", borderRadius: "0" }}>
               <table className="mc-table">
                 <thead>
                   <tr>
@@ -123,20 +123,20 @@ export default function DeckOverview() {
                 <tbody>
                   {recentLogs.length === 0 ? (
                     <tr>
-                      <td colSpan="4" style="text-align: center; padding: 2rem; color: var(--mc-text-dim);">
+                      <td colSpan="4" style={{ textAlign: "center", padding: "2rem", color: "var(--mc-text-dim)" }}>
                         No recent security events recorded in radar buffer.
                       </td>
                     </tr>
                   ) : (
                     recentLogs.map((log, idx) => (
                       <tr key={idx}>
-                        <td style="font-family: var(--mc-font-mono); font-size: 0.72rem; color: var(--mc-text-muted);">
+                        <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.72rem", color: "var(--mc-text-muted)" }}>
                           {log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : 'NOW'}
                         </td>
-                        <td style="font-family: var(--mc-font-mono); font-weight: 700;">
+                        <td style={{ fontFamily: "var(--mc-font-mono)", fontWeight: "700" }}>
                           {log.action}
                         </td>
-                        <td style="font-family: var(--mc-font-mono); font-size: 0.75rem; color: var(--mc-cyan);">
+                        <td style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.75rem", color: "var(--mc-cyan)" }}>
                           {log.targetUid || log.email || 'SYSTEM'}
                         </td>
                         <td>
@@ -154,59 +154,59 @@ export default function DeckOverview() {
         </div>
 
         {/* Rapid Sector Actions Card */}
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <div className="mc-panel">
             <div className="mc-panel-header">
               <h3 className="mc-panel-title">
-                <span style="color: var(--mc-gold);">&#9881;</span> RAPID SECTOR LAUNCHERS
+                <span style={{ color: "var(--mc-gold)" }}>&#9881;</span> RAPID SECTOR LAUNCHERS
               </h3>
             </div>
-            <div className="mc-panel-body" style="display: flex; flex-direction: column; gap: 0.75rem;">
-              <button className="mc-btn mc-btn-secondary" style="justify-content: flex-start; padding: 10px;" onClick={() => navigate('/admin/identities')}>
-                <span style="font-size: 1.1rem;">🔑</span>
-                <div style="text-align: left;">
-                  <div style="font-weight: 700;">Inspect User Account</div>
-                  <div style="font-size: 0.7rem; color: var(--mc-text-dim);">Look up profile, sessions, or badges</div>
+            <div className="mc-panel-body" style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <button className="mc-btn mc-btn-secondary" style={{ justifyContent: "flex-start", padding: "10px" }} onClick={() => navigate('/admin/identities')}>
+                <span style={{ fontSize: "1.1rem" }}>🔑</span>
+                <div style={{ textAlign: "left" }}>
+                  <div style={{ fontWeight: "700" }}>Inspect User Account</div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--mc-text-dim)" }}>Look up profile, sessions, or badges</div>
                 </div>
               </button>
 
-              <button className="mc-btn mc-btn-secondary" style="justify-content: flex-start; padding: 10px;" onClick={() => navigate('/admin/founders')}>
-                <span style="font-size: 1.1rem;">🎖</span>
-                <div style="text-align: left;">
-                  <div style="font-weight: 700;">Award Founder Designation</div>
-                  <div style="font-size: 0.7rem; color: var(--mc-text-dim);">Grant authoritative badge & number</div>
+              <button className="mc-btn mc-btn-secondary" style={{ justifyContent: "flex-start", padding: "10px" }} onClick={() => navigate('/admin/founders')}>
+                <span style={{ fontSize: "1.1rem" }}>🎖</span>
+                <div style={{ textAlign: "left" }}>
+                  <div style={{ fontWeight: "700" }}>Award Founder Designation</div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--mc-text-dim)" }}>Grant authoritative badge & number</div>
                 </div>
               </button>
 
-              <button className="mc-btn mc-btn-secondary" style="justify-content: flex-start; padding: 10px;" onClick={() => navigate('/admin/security')}>
-                <span style="font-size: 1.1rem;">🛡</span>
-                <div style="text-align: left;">
-                  <div style="font-weight: 700;">Security Center & MFA</div>
-                  <div style="font-size: 0.7rem; color: var(--mc-text-dim);">Review lockouts & recovery requests</div>
+              <button className="mc-btn mc-btn-secondary" style={{ justifyContent: "flex-start", padding: "10px" }} onClick={() => navigate('/admin/security')}>
+                <span style={{ fontSize: "1.1rem" }}>🛡</span>
+                <div style={{ textAlign: "left" }}>
+                  <div style={{ fontWeight: "700" }}>Security Center & MFA</div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--mc-text-dim)" }}>Review lockouts & recovery requests</div>
                 </div>
               </button>
 
-              <button className="mc-btn mc-btn-secondary" style="justify-content: flex-start; padding: 10px;" onClick={() => navigate('/admin/terminal')}>
-                <span style="font-size: 1.1rem;">💳</span>
-                <div style="text-align: left;">
-                  <div style="font-weight: 700;">Virtual Card Terminal</div>
-                  <div style="font-size: 0.7rem; color: var(--mc-text-dim);">Process client credit card transaction</div>
+              <button className="mc-btn mc-btn-secondary" style={{ justifyContent: "flex-start", padding: "10px" }} onClick={() => navigate('/admin/terminal')}>
+                <span style={{ fontSize: "1.1rem" }}>💳</span>
+                <div style={{ textAlign: "left" }}>
+                  <div style={{ fontWeight: "700" }}>Virtual Card Terminal</div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--mc-text-dim)" }}>Process client credit card transaction</div>
                 </div>
               </button>
             </div>
           </div>
 
           {/* System Environment Callout */}
-          <div className="mc-panel" style="background: var(--mc-bg-deep); border-color: rgba(255, 215, 0, 0.2);">
-            <div className="mc-panel-body" style="display: flex; flex-direction: column; gap: 0.5rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-family: var(--mc-font-mono); font-size: 0.65rem; color: var(--mc-text-dim);">ENGINE STATUS</span>
+          <div className="mc-panel" style={{ background: "var(--mc-bg-deep)", borderColor: "rgba(255, 215, 0, 0.2)" }}>
+            <div className="mc-panel-body" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.65rem", color: "var(--mc-text-dim)" }}>ENGINE STATUS</span>
                 <span className="mc-badge nominal">&#9679; ONLINE</span>
               </div>
-              <div style="font-family: var(--mc-font-mono); font-size: 0.75rem; color: var(--mc-text-main);">
+              <div style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.75rem", color: "var(--mc-text-main)" }}>
                 RAILWAY CLOUD CONTAINER: NOMINAL
               </div>
-              <div style="font-family: var(--mc-font-mono); font-size: 0.68rem; color: var(--mc-cyan);">
+              <div style={{ fontFamily: "var(--mc-font-mono)", fontSize: "0.68rem", color: "var(--mc-cyan)" }}>
                 auth-api.lanzar.me // PORT 4001
               </div>
             </div>

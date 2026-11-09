@@ -69,14 +69,14 @@ export default function AdminApp({ admin, user, handleSignOut }) {
             <span className="mc-brand-badge">MISSION CONTROL</span>
           </div>
           <div className="mc-telemetry-pill">
-            <span style="color: var(--mc-emerald); font-size: 0.8em;">&#9679;</span>
+            <span style={{ color: "var(--mc-emerald)", fontSize: "0.8em" }}>&#9679;</span>
             <span>TELEMETRY NOMINAL</span>
           </div>
         </div>
 
         <div className="mc-topbar-center">
           <button className="mc-search-trigger" onClick={() => setPaletteOpen(true)}>
-            <span style="color: var(--mc-gold);">&#9737;</span>
+            <span style={{ color: "var(--mc-gold)" }}>&#9737;</span>
             <span>Quick Jump (Decks, Users, Logs)...</span>
             <span className="mc-kbd-shortcut">Cmd/Ctrl + K</span>
           </button>
@@ -182,7 +182,7 @@ export default function AdminApp({ admin, user, handleSignOut }) {
         </div>
 
         {/* Specialized Operational Tools */}
-        <div className="mc-rail-section" style="border-top: 1px solid var(--mc-border); margin-top: 0.5rem;">
+        <div className="mc-rail-section" style={{ borderTop: "1px solid var(--mc-border)", marginTop: "0.5rem" }}>
           <div className="mc-rail-heading">SPECIALIZED OPS</div>
 
           <button
@@ -235,7 +235,7 @@ export default function AdminApp({ admin, user, handleSignOut }) {
         </div>
 
         {/* External Ecosystem Links */}
-        <div className="mc-rail-section" style="border-top: 1px solid var(--mc-border); margin-top: 0.5rem;">
+        <div className="mc-rail-section" style={{ borderTop: "1px solid var(--mc-border)", marginTop: "0.5rem" }}>
           <div className="mc-rail-heading">ECOSYSTEM HUBS</div>
           <a href="https://tickets.lanzar.me" target="_blank" rel="noopener noreferrer" className="mc-rail-link">
             <span className="mc-rail-icon">↗</span>
