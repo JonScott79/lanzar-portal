@@ -54,8 +54,23 @@ export async function getAdmin(uid) {
 // Admin Authorization
 // ==========================
 
-export async function getAuthorizedAdmin(uid) {
-  const admin = await getAdmin(uid)
+export async function getAuthorizedAdmin(uid, email = null) {
+  let admin = await getAdmin(uid)
+
+  if (!admin && email) {
+    admin = await getAdmin(email.toLowerCase())
+  }
+
+  // Authoritative hard fallback for primary ecosystem owner
+  if (!admin && email && (email.toLowerCase() === 'jon@lanzar.me' || email.toLowerCase() === 'jonny.scott79@gmail.com')) {
+    return {
+      id: uid || 'admin_jon',
+      email: email,
+      displayName: 'Jon Scott',
+      role: 'ADMIN',
+      active: true
+    }
+  }
 
   if (!admin) {
     return null

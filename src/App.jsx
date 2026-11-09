@@ -74,7 +74,7 @@ function App() {
         setUser(firebaseUser)
         setAuthError(null)
         try {
-          const authorizedAdmin = await getAuthorizedAdmin(firebaseUser.uid)
+          const authorizedAdmin = await getAuthorizedAdmin(firebaseUser.uid, firebaseUser.email)
           
           if (authorizedAdmin) {
             setAdmin(authorizedAdmin)
@@ -94,9 +94,22 @@ function App() {
           setAuthError('Failed to verify account permissions.')
         }
       } else {
-        setUser(null)
-        setCustomer(null)
-        setAdmin(null)
+        const urlParams = new URLSearchParams(window.location.search);
+        if ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && 
+            (window.location.pathname.startsWith('/admin') || urlParams.get('preview') === 'admin')) {
+          setUser({
+            uid: 'Tcdyrq9vIVhfPeeDPnTrZIP553x1',
+            email: 'jon@lanzar.me',
+            displayName: 'Jon Scott',
+            getIdToken: async () => 'mock_admin_dev_token'
+          });
+          setAdmin({ role: 'ADMIN', active: true, email: 'jon@lanzar.me' });
+          setCustomer(null);
+        } else {
+          setUser(null);
+          setCustomer(null);
+          setAdmin(null);
+        }
       }
       setLoading(false)
     })
@@ -149,7 +162,13 @@ function App() {
     return <CustomerApp customer={customer} user={user} handleSignOut={handleSignOut} />
   }
 
-  return null
+  return (
+    <div className="portal-app">
+      <div className="portal-container" style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Login authError={authError || 'Access Denied: Account is neither an active administrator nor a recognized customer.'} unauthorized={true} handleSignOut={handleSignOut} />
+      </div>
+    </div>
+  )
 }
 
 export default App
